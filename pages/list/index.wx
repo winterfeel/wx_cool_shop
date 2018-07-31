@@ -1,0 +1,130 @@
+<template>
+  <view>
+    <view class="cover-view">
+      <image class="cover" src="http://yanxuan.nosdn.127.net/c1adbc77984d504e48329dcc5f742905.jpg" mode="widthFix"/>
+    </view>
+    <view class="shop-list">
+      <view class="shop-list-item" wx:for="{{shopitems}}">
+        <view class="shop-list-item-block">
+          <image src="{{item.img}}" mode="aspectFit" />
+          <view class="shop-list-item-info">
+            <view class="shop-list-item-info-left">
+              <view class="shop-list-item-name">{{item.name}}</view>
+              <view class="shop-list-item-subinfo">
+                <view class="shop-list-item-subinfo-price">¥{{item.price}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: ''
+  },
+  data: {
+    shopitems:[
+    {
+      "img": "http://yanxuan.nosdn.127.net/9a5df7c15df022a632eb46a34da95607.png",
+      "name": "普罗旺斯红葡萄酒",
+      "price": "118"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/faf45aee8f6d9bd49a49c97576110013.png",
+      "name": "牛皮手提包",
+      "price": "389"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/07e7bce8a3aefc5bebccfe5d8f35a204.png",
+      "name": "景点POLO衫",
+      "price": "199",
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/cc4f4ce13dabc26d03c91c5e04824fb2.png",
+      "name": "夏日凉席",
+      "price": "499",
+    },{
+      "img": "http://yanxuan.nosdn.127.net/9a5df7c15df022a632eb46a34da95607.png",
+      "name": "普罗旺斯红葡萄酒",
+      "price": "118"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/faf45aee8f6d9bd49a49c97576110013.png",
+      "name": "牛皮手提包",
+      "price": "389"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/07e7bce8a3aefc5bebccfe5d8f35a204.png",
+      "name": "景点POLO衫",
+      "price": "199",
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/cc4f4ce13dabc26d03c91c5e04824fb2.png",
+      "name": "夏日凉席",
+      "price": "499",
+    }]
+  }
+}
+</script>
+
+<style lang="less">
+
+.cover-view{
+  width:100%;
+  padding:5px;
+}
+.cover{
+  width:100%;
+}
+.shop-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.shop-list-item {
+  flex: 0 1 50%;
+}
+.shop-list-item .shop-list-item-block {
+  margin: 5px;
+  border-radius: 2px;
+  background: #fff;
+}
+.shop-list-item .shop-list-item-block image {
+  height: 140px;
+  // border-top-left-radius: 2px;
+  // border-top-right-radius: 2px;
+  background: #f4f4f4;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left {
+  flex: 1;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-name {
+  font-size: 25rpx;
+  color: #333;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo {
+  font-size: 20rpx;
+  color: #888;
+  padding-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo .shop-list-item-subinfo-price {
+  flex: 1;
+  font-size: 28rpx;
+  color: #b5262d;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info image {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+</style>

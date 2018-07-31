@@ -1,0 +1,341 @@
+<template>
+<view>
+  <view class="cart-box">
+    <view class="item" wx:for="{{list}}" wx:key="list">
+      <icon type="{{item.select}}" color="#333" size="26" data-index="{{index}}" data-select="{{item.select}}" bindtap="change"></icon>
+      <image src="{{item.url}}" class="goods-img" mode="aspectFill"/>
+      <view class="goods-info">
+        <view class="row">
+          <view class="goods-name">{{item.name}}</view>
+          <view class="goods-price">{{item.from}}</view>
+        </view>
+        <view class="goods-type">
+          $ {{item.price}}
+        </view>
+        <view class="num-box">
+          <view class="btn-groups">
+            <button plain class="goods-btn btn-minus" data-index="{{index}}" data-num="{{item.num}}" bindtap="subtraction">—</button>
+            <view class="num">{{item.num}}</view>
+            <button plain class="goods-btn btn-add" data-index="{{index}}" data-num="{{item.num}}" bindtap="addtion">+</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cart-fixbar">
+    <view class="allSelect">
+      <icon color="#333" type="{{allSelect}}" size="26" data-select="{{allSelect}}" bindtap="allSelect"></icon>
+      <view class="allSelect-text">全选</view>
+    </view>
+    <view class="count">
+      <text>合计: ¥ </text>{{count}}
+    </view>
+    <view class="order" bindtap="goPay">
+      结 算<text class="allnum">({{num}})</text>
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '购物车',
+    backgroundColor: '#fff',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    list:[{
+      code:"0001",
+      name:"新款线控耳机",
+      url:"http://yanxuan.nosdn.127.net/bb54b4e6a7f9cce92c24dd51a6485646.png?imageView&thumbnail=750x0&quality=75",
+      price:"119",
+      select:"circle",
+      num:"1",
+      from:"支持苹果安卓双端"
+    },
+    {
+      code: "0002",
+      name: "黑色大理石纹旅行箱",
+      url: "http://yanxuan.nosdn.127.net/fcbfea414e3a2e1aa941574fb40cbd4d.png?imageView&amp;thumbnail=750x0&amp;quality=75",
+      price: "449",
+      select: "circle",
+      num: "1",
+      from:"出行有格调"
+    }],
+    allSelect:"circle",
+    num:0,
+    count:0
+  },
+  onLoad:function(e){
+
+  },
+  goPay:function(e){
+    wx.navigateTo({
+      url: '../pay/index'
+    })
+  },
+  //改变选框状态
+  change:function(e){
+    var that=this
+    //得到下标
+    var index = e.currentTarget.dataset.index
+    //得到选中状态
+    var select = e.currentTarget.dataset.select
+    
+    if(select == "circle"){
+       var stype="success"
+    }else{
+       var stype="circle"
+    }
+    
+    //把新的值给新的数组
+   var newList= that.data.list
+   newList[index].select=stype
+    //把新的数组传给前台
+    that.setData({
+      list:newList
+    })
+    //调用计算数目方法
+    that.countNum()
+    //计算金额
+    that.count()
+  },
+  //加法
+  addtion:function(e){
+    var that=this
+    //得到下标
+    var index = e.currentTarget.dataset.index
+    //得到点击的值
+    var num = e.currentTarget.dataset.num
+    //默认99件最多
+    if(num<100){
+      num++
+    }
+    //把新的值给新的数组
+    var newList = that.data.list
+    newList[index].num =num
+   
+    //把新的数组传给前台
+    that.setData({
+      list: newList
+    })
+    //调用计算数目方法
+    that.countNum()
+    //计算金额
+    that.count()
+  },
+  //减法
+subtraction:function(e){
+  var that = this
+  //得到下标
+  var index = e.currentTarget.dataset.index
+  //得到点击的值
+  var num = e.currentTarget.dataset.num
+  //把新的值给新的数组
+  var newList = that.data.list
+  //当1件时，点击移除
+  if (num == 1) {
+      newList.splice(index,1)
+  }else{
+    num--
+    newList[index].num = num
+  }
+  
+  //把新的数组传给前台
+  that.setData({
+    list: newList
+  })
+  //调用计算数目方法
+  that.countNum()
+  //计算金额
+  that.count()
+},
+//全选
+allSelect:function(e){
+  var that=this
+  //先判断现在选中没
+  var allSelect = e.currentTarget.dataset.select
+  var newList = that.data.list
+  if(allSelect == "circle"){
+    //先把数组遍历一遍，然后改掉select值
+    for (var i = 0; i < newList.length; i++) {
+      newList[i].select = "success"
+    }
+    var select="success"
+  }else{
+    for (var i = 0; i < newList.length; i++) {
+      newList[i].select = "circle"
+    }
+    var select = "circle"
+  }
+  that.setData({
+    list:newList,
+    allSelect:select
+  })
+  //调用计算数目方法
+  that.countNum()
+  //计算金额
+  that.count()
+},
+//计算数量
+countNum:function(){
+  var that=this
+  //遍历数组，把既选中的num加起来
+  var newList = that.data.list
+  var allNum=0
+  for (var i = 0; i < newList.length; i++) {
+        if(newList[i].select=="success"){
+          allNum += parseInt(newList[i].num) 
+        }
+  }
+  parseInt
+  console.log(allNum)
+  that.setData({
+    num:allNum
+  })
+},
+//计算金额方法
+count:function(){
+  var that=this 
+  //思路和上面一致
+  //选中的订单，数量*价格加起来
+  var newList = that.data.list
+  var newCount=0
+  for(var i=0;i<newList.length;i++){
+    if(newList[i].select == "success"){
+      newCount += newList[i].num * newList[i].price
+    }
+  }
+  that.setData({
+    count:newCount
+  })
+}
+}
+</script>
+
+<style lang="less">
+page{
+  background: #eee;
+}
+.cart-box .item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.cart-box .item .goods-info{
+  margin-left: 20rpx;
+}
+.cart-box .goods-img{
+  width: 160rpx;
+  height: 160rpx;
+  margin-left: 20rpx;
+}
+.cart-box .row{
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  width: 430rpx;
+  justify-content: space-between;
+}
+.cart-box .goods-name{
+  flex:1;
+  font-size: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cart-box .goods-price{
+  color:#888;
+  font-size: 25rpx;
+}
+.cart-box .goods-type{
+  color: #b5262d;
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+}
+.cart-box .num-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.cart-box .goods-btn{
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  line-height: 58rpx;
+  font-weight: 200;
+  color: #b5262d;
+  margin: 0;
+  background: #eee;
+  border-radius: 20px;
+  border:0;
+}
+.cart-box .num{
+  color: #333;
+  width: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size:35rpx;
+}
+.cart-box .btn-add{
+  font-size: 40rpx;
+}
+.cart-box .btn-minus{
+  font-size: 28rpx;
+}
+.cart-box .btn-groups{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    // border: 1px solid #e7c790;
+    // border-radius: 20rpx;
+}
+.cart-fixbar{
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  height: 100rpx;
+  width: 100%;
+  padding: 0 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cart-fixbar .allSelect{
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  align-items: center;
+  color: #333;
+  font-size: 32rpx;
+}
+.cart-fixbar .allSelect-text{
+  margin-left: 20rpx;
+}
+.cart-fixbar .count{
+  margin-left: 80rpx;
+  color: #333;
+  font-size: 36rpx;
+}
+
+.cart-fixbar .order{
+  color:#fff;
+  height: 100rpx;
+  background: #b5262d;
+  line-height: 100rpx;
+  position: absolute;
+  right: 0;
+  padding: 0 40rpx;
+  font-size: 32rpx;
+}
+
+.cart-fixbar .allnum{
+  font-size: 24rpx;
+  width: 50rpx;
+}
+
+</style>

@@ -1,0 +1,226 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+page {
+  background: #f4f4f4;
+}
+ui-tabs {
+  background-color: #fff;
+  padding-bottom: 1px;
+}
+.ui-tab.ui-tab-x.active {
+  color: #111;
+  border-bottom: 3px solid #111 !important;
+}
+.content {
+  line-height: 60px;
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background: #fff;
+}
+.icon-view {
+  display: flex;
+  flex-direction: column;
+  flex: 0.25;
+}
+.icon-view image {
+  margin: auto;
+  width: 50%;
+}
+.icon-text {
+  margin-top: 10px;
+  color: #888;
+  font-size: 20rpx;
+  text-align: center;
+  font-weight: bold;
+}
+.swiper-container .swiper {
+  height: 200px;
+}
+.swiper-container .swiper .img {
+  width: 100%;
+  height: 100%;
+}
+.block-view {
+  margin-top: 8px;
+  background: #fff;
+}
+.block-title {
+  padding: 8px;
+  font-size: 30rpx;
+  color: #555;
+  text-align: center;
+}
+.block-title-more {
+  padding: 8px;
+  font-size: 30rpx;
+  color: #555;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.grid-row {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5px;
+}
+.grid-row-item {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  flex: 1;
+}
+.grid-row-item image {
+  height: 110px;
+}
+.picture-scroll {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-bottom: 5px;
+}
+.scroll-item {
+  margin-left: 5px;
+  width: 40%;
+  background: #f4f4f4;
+  height: 120px;
+  display: inline-block;
+}
+.picture-title {
+  font-size: 30rpx;
+  color: #444;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.picture-subtitle {
+  font-size: 25rpx;
+  color: #7f7f7f;
+  margin-left: 5px;
+}
+.picture-price {
+  font-size: 30rpx;
+  color: #b5262d;
+  margin-left: 5px;
+}
+.album {
+  width: 100%;
+}
+.article-list {
+  padding: 5px;
+}
+.article-item {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  height: 130px;
+  margin-bottom: 8px;
+}
+.article-item-left {
+  flex: 0.6;
+  padding: 10px;
+}
+.article-item-left .article-item-left-info {
+  color: #333;
+  font-size: 30rpx;
+  margin-top: 5px;
+  line-height: 30px;
+  display: flex;
+  flex-direction: row;
+}
+.article-item-left .article-item-left-info image {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+.article-item-left .article-item-left-info .article-item-left-info-name {
+  margin-left: 5px;
+}
+.article-item-left .article-item-left-title {
+  color: #333;
+  font-size: 35rpx;
+  margin-top: 10px;
+}
+.article-item-left .article-item-left-subtitle {
+  color: #888;
+  font-size: 30rpx;
+}
+.article-item-right {
+  flex: 0.4;
+}
+.article-item-right image {
+  height: 100%;
+}
+.shop-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.shop-list-item {
+  flex: 0 1 50%;
+}
+.shop-list-item .shop-list-item-block {
+  margin: 5px;
+  border-radius: 2px;
+  background: #fff;
+}
+.shop-list-item .shop-list-item-block image {
+  height: 140px;
+  background: #f4f4f4;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left {
+  flex: 1;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-name {
+  font-size: 25rpx;
+  color: #333;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo {
+  font-size: 20rpx;
+  color: #888;
+  padding-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo .shop-list-item-subinfo-price {
+  flex: 1;
+  font-size: 28rpx;
+  color: #b5262d;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info image {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}

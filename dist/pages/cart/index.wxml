@@ -1,0 +1,37 @@
+<view>
+  <view class="cart-box">
+    <view class="item" wx:for="{{list}}" wx:key="list">
+      <icon type="{{item.select}}" color="#333" size="26" data-index="{{index}}" data-select="{{item.select}}" bindtap="change"></icon>
+      <image src="{{item.url}}" class="goods-img" mode="aspectFill" />
+      <view class="goods-info">
+        <view class="row">
+          <view class="goods-name">{{item.name}}</view>
+          <view class="goods-price">{{item.from}}</view>
+        </view>
+        <view class="goods-type">
+          $ {{item.price}}
+        </view>
+        <view class="num-box">
+          <view class="btn-groups">
+            <button plain class="goods-btn btn-minus" data-index="{{index}}" data-num="{{item.num}}" bindtap="subtraction">—</button>
+            <view class="num">{{item.num}}</view>
+            <button plain class="goods-btn btn-add" data-index="{{index}}" data-num="{{item.num}}" bindtap="addtion">+</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cart-fixbar">
+    <view class="allSelect">
+      <icon color="#333" type="{{allSelect}}" size="26" data-select="{{allSelect}}" bindtap="allSelect"></icon>
+      <view class="allSelect-text">全选</view>
+    </view>
+    <view class="count">
+      <text>合计: $</text>{{count}}
+    </view>
+    <view class="order" bindtap="goPay">
+      结 算
+      <text class="allnum">({{num}})</text>
+    </view>
+  </view>
+</view>

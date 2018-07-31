@@ -1,0 +1,28 @@
+<view>
+  <view class="ui-row" style="">
+    <view class="ui-col ui-col-3" style="flex: 0 0 25%;">
+      <view class="ui-col-content">
+        <ui-v-tabs height="{{height}}" tab-style="{{tabStyle}}" active-tab-style="{{activeTabStyle}}" class="tab-item" index="{{ current }}" data-key="current" bindchange="handleChange" _pid="{{_pid}}">
+          <ui-v-tab wx:for="{{ tabItems }}" _pid="{{_pid}}">
+            {{ item.name }}
+          </ui-v-tab>
+        </ui-v-tabs>
+      </view>
+    </view>
+    <view class="ui-col" style="">
+      <view class="ui-col-content">
+        <scroll-view scroll-y style="height: {{ height+'px' }};">
+          <view class="cover-view">
+            <image class="cover" src="{{tabContentData.cover}}" mode="widthFix" />
+          </view>
+          <view class="goods-box">
+            <view class="goods-list" wx:for="{{tabContentData.subCategoryList}}" wx:for-index="idx" bindtap="onclick">
+              <image class="imgbox" src="{{item.imageUrl}}" />
+              <view class="small-title">{{item.categoryName}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>

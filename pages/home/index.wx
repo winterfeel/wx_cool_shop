@@ -1,0 +1,484 @@
+<template>
+  <view>
+
+    <ui-tabs index="{{ current1 }}" ink-bar tab-style="color:#888;" ink-bar-style="border-bottom:3px solid #111;width:60%;" active-tab-style="color:#111;" bounce="false"  bindchange="handleChange1">
+      <ui-tab>热门推荐</ui-tab>
+      <ui-tab>海淘尖货</ui-tab>
+      <ui-tab>颜值吃货</ui-tab>
+      <ui-tab>跨境货</ui-tab>
+      <ui-tab>限时抢购</ui-tab>
+    </ui-tabs>
+
+    <view class="swiper-container">
+      <swiper circular autoplay indicator-dots indicator-color="#ddd" indicator-active-color="#fff" interval="5000" duration="500" class="swiper">
+          <block wx:for="{{banners}}" wx:key="unique">
+              <swiper-item>
+                  <image src="{{item.img}}" class="img" mode="scaleToFill"/>
+              </swiper-item>
+          </block>
+      </swiper>
+    </view>
+
+
+    <view class="icons">
+      <view class="icon-view">
+        <image src="../../assets/icon_home_1.png" mode="widthFix"/>
+        <view class="icon-text">热卖尖品</view>
+      </view>
+      <view class="icon-view">
+        <image src="../../assets/icon_home_2.png" mode="widthFix"/>
+        <view class="icon-text">大牌推荐</view>
+      </view>
+      <view class="icon-view">
+        <image src="../../assets/icon_home_3.png" mode="widthFix"/>
+        <view class="icon-text">限时秒杀</view>
+      </view>
+      <view class="icon-view">
+        <image src="../../assets/icon_home_4.png" mode="widthFix"/>
+        <view class="icon-text">编辑优选</view>
+      </view>
+    </view>
+
+    <view class="block-view">
+      <view class="block-title">
+        品牌制造商直供
+      </view>
+      <view class="grid-row">
+        <view class="grid-row-item">
+          <image src="http://luluimg.lulufind.com/yx001.png" mode="scaleToFill"/>
+        </view>
+        <view class="grid-row-item">
+          <image src="http://luluimg.lulufind.com/yx002.png" mode="scaleToFill"/>
+        </view>
+      </view>
+      <view class="grid-row">
+        <view class="grid-row-item">
+          <image src="http://luluimg.lulufind.com/yx003.png" mode="scaleToFill"/>
+        </view>
+        <view class="grid-row-item">
+          <image src="http://luluimg.lulufind.com/yx004.png" mode="scaleToFill"/>
+        </view>
+      </view>
+    </view>
+
+    <view class="block-view">
+      <view class="block-title">
+        限时抢购<text style="color:#888;margin-left:5px;font-size:25rpx;">2分15秒后开始</text>
+      </view>
+      <scroll-view scroll-x class="picture-scroll">
+        <view class="scroll-item" wx:for="{{scrolls}}">
+          <image class="picture-item" mode="aspectFit" src="{{item.img}}"/>
+          <view class="picture-title">{{item.title}}</view>
+          <view class="picture-subtitle">{{item.subtitle}}</view>
+          <view class="picture-price">¥{{item.price}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="block-view">
+      <image class="album" src="http://yanxuan.nosdn.127.net/a3ea2d1108c94c7dece05eddf95f6df5.jpg" mode="widthFix"/>
+    </view>
+
+    <view class="block-view">
+      <view class="block-title">
+        达人推荐
+      </view>
+      <view class="article-list">
+        <view class="article-item" wx:for="{{articles}}">
+          <view class="article-item-left">
+            <view class="article-item-left-info">
+              <image src="{{item.avatar}}" mode="scaleToFill"/>
+              <view class="article-item-left-info-name">{{item.name}}</view>
+            </view>
+            <view class="article-item-left-title">{{item.title}}</view>
+            <view class="article-item-left-subtitle">{{item.subtitle}}</view>
+          </view>
+          <view class="article-item-right">
+            <image src="{{item.img}}" mode="aspectFill"/>
+          </view>
+        </view>
+      </view>
+      <view class="block-title-more">
+        查看更多 >
+      </view>
+    </view>
+
+    <view class="block-view">
+      <image class="album" src="http://yanxuan.nosdn.127.net/6bdd14d33ad4fd47cf8302967be591e9.jpg" mode="widthFix"/>
+    </view>
+
+    <view class="block-view">
+      <view class="block-title">
+        猜你喜欢
+      </view>
+      <view class="shop-list">
+        <view class="shop-list-item" wx:for="{{shopitems}}">
+          <view class="shop-list-item-block">
+            <image src="{{item.img}}" mode="aspectFit" />
+            <view class="shop-list-item-info">
+              <view class="shop-list-item-info-left">
+                <view class="shop-list-item-name">{{item.name}}</view>
+                <view class="shop-list-item-subinfo">
+                  <view class="shop-list-item-subinfo-price">¥{{item.price}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+      </view>
+    </view>
+
+  </view>
+
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '首页',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    current1: 0,
+    banners:[
+      {'img':'https://yanxuan.nosdn.127.net/0e78165e335c1307c79027a745eb3143.jpg'},
+      {'img':'https://yanxuan.nosdn.127.net/102b4b903d01096284e74092a6e6ab95.jpg'},
+      {'img':'https://yanxuan.nosdn.127.net/5986e092916de9fa57e929d67c8bb70c.jpg'}
+    ],
+    scrolls:[
+      {
+        'img':'http://yanxuan.nosdn.127.net/ccdbdc82bdc8929723e4941a93f85550.png',
+        'title':'新款线控耳机X21',
+        'subtitle':'支持苹果安卓双端',
+        'price':'89'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/6af47a715172e766e39c55f4b31ec7db.png',
+        'title':'灭蚊魔方',
+        'subtitle':'支持苹果安卓双端',
+        'price':'89'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/4ed0b3ba344a1a8a050de4f06d178b7d.png',
+        'title':'新款线控耳机X21',
+        'subtitle':'支持苹果安卓双端',
+        'price':'89'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/e9c2901382a1929be07be7c52344d3fc.png',
+        'title':'新款线控耳机X21',
+        'subtitle':'支持苹果安卓双端',
+        'price':'89'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/e3a98766dda2d446dc194d9ac38baf05.png',
+        'title':'新款线控耳机X21',
+        'subtitle':'支持苹果安卓双端',
+        'price':'89'
+      }
+    ],
+    articles:[
+      {
+        'img':'http://yanxuan.nosdn.127.net/056020fae9535417dae4c51140028a8f.jpg',
+        'name':'小公举',
+        'avatar':'http://yanxuan.nosdn.127.net/6807fd568e667de9d3c82f76548d35ad.jpg',
+        'title':'夏天防蚊秘籍',
+        'subtitle':'从此告别蚊虫叮咬～'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/2454faed946c369545854e14cfca0f91.jpg',
+        'name':'咖啡陪你',
+        'avatar':'http://yanxuan.nosdn.127.net/ee5d69b43548a0b8f8765216aa2b335b.jpg',
+        'title':'今朝有酒今朝醉',
+        'subtitle':'happy的不得了'
+      },
+      {
+        'img':'http://yanxuan.nosdn.127.net/a9bb49a63fd2de0d833b16600cce3837.jpg',
+        'name':'杂货铺',
+        'avatar':'http://yanxuan.nosdn.127.net/6807fd568e667de9d3c82f76548d35ad.jpg',
+        'title':'家装好物',
+        'subtitle':'看到的第一眼就种草'
+      }
+    ],
+    shopitems:[
+    {
+      "img": "http://yanxuan.nosdn.127.net/9a5df7c15df022a632eb46a34da95607.png",
+      "name": "普罗旺斯红葡萄酒",
+      "price": "118"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/faf45aee8f6d9bd49a49c97576110013.png",
+      "name": "牛皮手提包",
+      "price": "389"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/07e7bce8a3aefc5bebccfe5d8f35a204.png",
+      "name": "景点POLO衫",
+      "price": "199",
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/cc4f4ce13dabc26d03c91c5e04824fb2.png",
+      "name": "夏日凉席",
+      "price": "499",
+    },{
+      "img": "http://yanxuan.nosdn.127.net/9a5df7c15df022a632eb46a34da95607.png",
+      "name": "普罗旺斯红葡萄酒",
+      "price": "118"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/faf45aee8f6d9bd49a49c97576110013.png",
+      "name": "牛皮手提包",
+      "price": "389"
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/07e7bce8a3aefc5bebccfe5d8f35a204.png",
+      "name": "景点POLO衫",
+      "price": "199",
+    }, {
+      "img": "http://yanxuan.nosdn.127.net/cc4f4ce13dabc26d03c91c5e04824fb2.png",
+      "name": "夏日凉席",
+      "price": "499",
+    }]
+  },
+  handleChange1 (e) {
+    let index = e.detail.index
+    this.setData({
+      current1:index
+    })
+  }
+}
+</script>
+
+<style lang="less">
+page{
+  background: #f4f4f4;
+}
+
+ui-tabs{
+  background-color: #fff;
+  padding-bottom: 1px;
+}
+
+.ui-tab.ui-tab-x.active{
+  color:#111;
+  border-bottom:3px solid #111 !important;
+}
+
+.content {
+  line-height: 60px;
+}
+
+.icons{
+  display: flex;
+  flex-direction: row;
+  margin-top:5px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background: #fff;
+}
+
+.icon-view{
+  display: flex;
+  flex-direction: column;
+  flex:0.25;
+}
+
+.icon-view image{
+  margin:auto;
+  width:50%;
+}
+
+.icon-text{
+  margin-top:10px;
+  color:#888;
+  font-size: 20rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+.swiper-container .swiper{
+  height: 200px;
+}
+
+.swiper-container .swiper .img{
+  width: 100%;
+  height: 100%;
+}
+
+.block-view{
+  margin-top:8px;
+  background: #fff;
+}
+
+.block-title{
+  padding:8px;
+  font-size: 30rpx;
+  color:#555;
+  text-align: center;
+}
+
+.block-title-more{
+  padding:8px;
+  font-size: 30rpx;
+  color:#555;
+  text-align: center;
+  padding-bottom:10px;
+}
+
+.grid-row{
+  display: flex;
+  flex-direction: row;
+  margin-right:5px;
+}
+
+.grid-row-item{
+  margin-left:5px;
+  margin-bottom:5px;
+  flex:1;
+  image{
+    height:110px;
+  }
+}
+
+.picture-scroll{
+  display: block;
+  white-space: nowrap;
+  overflow:hidden;
+  // padding-left: 5px;
+  padding-bottom: 5px;
+}
+
+.scroll-item{
+  margin-left:5px;
+  width:40%;
+  background: #f4f4f4;
+  height:120px;
+  display: inline-block;
+}
+
+
+.picture-title{
+  font-size: 30rpx;
+  color:#444;
+  margin-left:5px;
+  margin-top:5px;
+}
+
+.picture-subtitle{
+  font-size: 25rpx;
+  color:#7f7f7f;
+  margin-left:5px;
+}
+
+.picture-price{
+  font-size: 30rpx;
+  color:#b5262d;
+  margin-left:5px;
+}
+
+.album{
+  width:100%;
+}
+
+.article-list{
+  padding:5px;
+}
+
+.article-item{
+  display: flex;
+  flex-direction: row;
+  border:1px solid #eee;
+  border-radius: 5px;
+  height:130px;
+  margin-bottom: 8px;
+}
+
+.article-item-left{
+  flex:0.6;
+  padding:10px;
+  .article-item-left-info{
+    color:#333;
+    font-size: 30rpx;
+    margin-top:5px;
+    line-height: 30px;
+    display: flex;
+    flex-direction: row;
+    image{
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+    }
+    .article-item-left-info-name{
+      margin-left: 5px;
+    }
+  }
+  .article-item-left-title{
+    color:#333;
+    font-size: 35rpx;
+    margin-top:10px;
+  }
+  .article-item-left-subtitle{
+    color:#888;
+    font-size: 30rpx;
+  }
+}
+
+.article-item-right{
+  flex:0.4;
+  image{
+    height:100%;
+  }
+}
+
+.shop-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.shop-list-item {
+  flex: 0 1 50%;
+}
+.shop-list-item .shop-list-item-block {
+  margin: 5px;
+  border-radius: 2px;
+  background: #fff;
+}
+.shop-list-item .shop-list-item-block image {
+  height: 140px;
+  // border-top-left-radius: 2px;
+  // border-top-right-radius: 2px;
+  background: #f4f4f4;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left {
+  flex: 1;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-name {
+  font-size: 25rpx;
+  color: #333;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo {
+  font-size: 20rpx;
+  color: #888;
+  padding-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo .shop-list-item-subinfo-price {
+  flex: 1;
+  font-size: 28rpx;
+  color: #b5262d;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info image {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+</style>

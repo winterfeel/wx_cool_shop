@@ -1,0 +1,80 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+.cover-view {
+  width: 100%;
+  padding: 5px;
+}
+.cover {
+  width: 100%;
+}
+.shop-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.shop-list-item {
+  flex: 0 1 50%;
+}
+.shop-list-item .shop-list-item-block {
+  margin: 5px;
+  border-radius: 2px;
+  background: #fff;
+}
+.shop-list-item .shop-list-item-block image {
+  height: 140px;
+  background: #f4f4f4;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left {
+  flex: 1;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-name {
+  font-size: 25rpx;
+  color: #333;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo {
+  font-size: 20rpx;
+  color: #888;
+  padding-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info .shop-list-item-info-left .shop-list-item-subinfo .shop-list-item-subinfo-price {
+  flex: 1;
+  font-size: 28rpx;
+  color: #b5262d;
+}
+.shop-list-item .shop-list-item-block .shop-list-item-info image {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}

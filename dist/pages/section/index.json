@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "ui-v-tabs": "../../packages/touchui-wx-components/ui-v-tabs/dist/index",
+    "ui-v-tab": "../../packages/touchui-wx-components/ui-v-tab/dist/index"
+  },
+  "navigationBarTitleText": "分类",
+  "backgroundColor": "#F4F4F4",
+  "navigationBarTextStyle": "black"
+}

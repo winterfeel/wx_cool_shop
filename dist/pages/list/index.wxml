@@ -1,0 +1,20 @@
+<view>
+  <view class="cover-view">
+    <image class="cover" src="http://yanxuan.nosdn.127.net/c1adbc77984d504e48329dcc5f742905.jpg" mode="widthFix" />
+  </view>
+  <view class="shop-list">
+    <view class="shop-list-item" wx:for="{{shopitems}}">
+      <view class="shop-list-item-block">
+        <image src="{{item.img}}" mode="aspectFit" />
+        <view class="shop-list-item-info">
+          <view class="shop-list-item-info-left">
+            <view class="shop-list-item-name">{{item.name}}</view>
+            <view class="shop-list-item-subinfo">
+              <view class="shop-list-item-subinfo-price">¥{{item.price}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,139 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+page {
+  background: #eee;
+}
+.cart-box .item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.cart-box .item .goods-info {
+  margin-left: 20rpx;
+}
+.cart-box .goods-img {
+  width: 160rpx;
+  height: 160rpx;
+  margin-left: 20rpx;
+}
+.cart-box .row {
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  width: 430rpx;
+  justify-content: space-between;
+}
+.cart-box .goods-name {
+  flex: 1;
+  font-size: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cart-box .goods-price {
+  color: #888;
+  font-size: 25rpx;
+}
+.cart-box .goods-type {
+  color: #b5262d;
+  font-size: 40rpx;
+  margin-bottom: 20rpx;
+}
+.cart-box .num-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.cart-box .goods-btn {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  line-height: 58rpx;
+  font-weight: 200;
+  color: #b5262d;
+  margin: 0;
+  background: #eee;
+  border-radius: 20px;
+  border: 0;
+}
+.cart-box .num {
+  color: #333;
+  width: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 35rpx;
+}
+.cart-box .btn-add {
+  font-size: 40rpx;
+}
+.cart-box .btn-minus {
+  font-size: 28rpx;
+}
+.cart-box .btn-groups {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.cart-fixbar {
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+  height: 100rpx;
+  width: 100%;
+  padding: 0 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.cart-fixbar .allSelect {
+  display: flex;
+  flex-direction: row;
+  height: 100rpx;
+  align-items: center;
+  color: #333;
+  font-size: 32rpx;
+}
+.cart-fixbar .allSelect-text {
+  margin-left: 20rpx;
+}
+.cart-fixbar .count {
+  margin-left: 80rpx;
+  color: #333;
+  font-size: 36rpx;
+}
+.cart-fixbar .order {
+  color: #fff;
+  height: 100rpx;
+  background: #b5262d;
+  line-height: 100rpx;
+  position: absolute;
+  right: 0;
+  padding: 0 40rpx;
+  font-size: 32rpx;
+}
+.cart-fixbar .allnum {
+  font-size: 24rpx;
+  width: 50rpx;
+}
