@@ -38,5 +38,10 @@ exports.default = Page({
       "name": "夏日凉席",
       "price": "499"
     }]
+  },
+  onitemclick: function onitemclick(e) {
+    wx.navigateTo({
+      url: '../detail/index'
+    });
   }
 });

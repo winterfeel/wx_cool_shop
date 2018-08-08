@@ -1,0 +1,105 @@
+<view>
+
+  <view class="header" wx:if="{{hasUserInfo}}">
+
+    <view class="header-avatar">
+      <image src="{{userInfo.avatarUrl}}" />
+    </view>
+
+    <view class="header-info">
+      <view class="header-info-name">{{userInfo.nickName}}</view>
+      <view class="header-info-sub">黄金会员</view>
+    </view>
+
+    <view class="header-arrow">
+      <image src="../../assets/next.png" mode="widthFix" />
+    </view>
+
+  </view>
+
+  <view class="header2" wx:if="{{!hasUserInfo}}">
+    <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="onlogin" wx:if="{{!hasUserInfo}}">立即登陆</button>
+  </view>
+
+  <view class="block-view">
+    <view class="block-title">
+      我的订单
+    </view>
+    <view class="function-view">
+      <view class="function-item-none">
+        <image src="../../assets/order_1.png" mode="scaleToFill" />
+        <view class="function-text">待付款</view>
+      </view>
+      <view class="function-item-none">
+        <image src="../../assets/order_2.png" mode="scaleToFill" />
+        <view class="function-text">待收货</view>
+      </view>
+      <view class="function-item-none">
+        <image src="../../assets/order_3.png" mode="scaleToFill" />
+        <view class="function-text">待评价</view>
+      </view>
+      <view class="function-item-none">
+        <image src="../../assets/order_4.png" mode="scaleToFill" />
+        <view class="function-text">所有订单</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="block-view">
+    <view class="function-view">
+      <view class="function-item">
+        <image src="../../assets/fun1.png" mode="scaleToFill" />
+        <view class="function-text">钱包</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun2.png" mode="scaleToFill" />
+        <view class="function-text">积分</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun3.png" mode="scaleToFill" />
+        <view class="function-text">红包</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun4.png" mode="scaleToFill" />
+        <view class="function-text">优惠券</view>
+      </view>
+    </view>
+    <view class="function-view">
+      <view class="function-item">
+        <image src="../../assets/fun5.png" mode="scaleToFill" />
+        <view class="function-text">我的收藏</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun6.png" mode="scaleToFill" />
+        <view class="function-text">团购</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun7.png" mode="scaleToFill" />
+        <view class="function-text">我的预约</view>
+      </view>
+      <view class="function-item">
+        <image src="../../assets/fun8.png" mode="scaleToFill" />
+        <view class="function-text">会员</view>
+      </view>
+    </view>
+    <view class="function-view">
+      <view class="function-item-bottom">
+        <image src="../../assets/fun9.png" mode="scaleToFill" />
+        <view class="function-text">我的地址</view>
+      </view>
+      <view class="function-item-bottom">
+        <image src="../../assets/fun10.png" mode="scaleToFill" />
+        <view class="function-text">客服</view>
+      </view>
+      <view class="function-item-bottom">
+        <image src="../../assets/fun11.png" mode="scaleToFill" />
+        <view class="function-text">帮助</view>
+      </view>
+      <view class="function-item-bottom">
+        <image src="../../assets/fun12.png" mode="scaleToFill" />
+        <view class="function-text">更多功能</view>
+      </view>
+    </view>
+  </view>
+
+</view>

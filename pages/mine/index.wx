@@ -1,0 +1,323 @@
+<template>
+  <view>
+
+    <view class="header" wx:if="{{hasUserInfo}}">
+
+      <view class="header-avatar">
+        <image src="{{userInfo.avatarUrl}}"/>
+      </view>
+
+      <view class="header-info">
+        <view class="header-info-name">{{userInfo.nickName}}</view>
+        <view class="header-info-sub">黄金会员</view>
+      </view>
+
+      <view class="header-arrow">
+        <image src="../../assets/next.png" mode="widthFix"/>
+      </view>
+
+    </view>
+
+    <view class="header2" wx:if="{{!hasUserInfo}}">
+      <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="onlogin" wx:if="{{!hasUserInfo}}">立即登陆</button>
+    </view>
+
+    <view class="block-view">
+      <view class="block-title">
+        我的订单
+      </view>
+      <view class="function-view">
+        <view class="function-item-none">
+          <image src="../../assets/order_1.png" mode="scaleToFill"/>
+          <view class="function-text">待付款</view>
+        </view>
+        <view class="function-item-none">
+          <image src="../../assets/order_2.png" mode="scaleToFill"/>
+          <view class="function-text">待收货</view>
+        </view>
+        <view class="function-item-none">
+          <image src="../../assets/order_3.png" mode="scaleToFill"/>
+          <view class="function-text">待评价</view>
+        </view>
+        <view class="function-item-none">
+          <image src="../../assets/order_4.png" mode="scaleToFill"/>
+          <view class="function-text">所有订单</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="block-view">
+      <view class="function-view">
+        <view class="function-item">
+          <image src="../../assets/fun1.png" mode="scaleToFill"/>
+          <view class="function-text">钱包</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun2.png" mode="scaleToFill"/>
+          <view class="function-text">积分</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun3.png" mode="scaleToFill"/>
+          <view class="function-text">红包</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun4.png" mode="scaleToFill"/>
+          <view class="function-text">优惠券</view>
+        </view>
+      </view>
+      <view class="function-view">
+        <view class="function-item">
+          <image src="../../assets/fun5.png" mode="scaleToFill"/>
+          <view class="function-text">我的收藏</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun6.png" mode="scaleToFill"/>
+          <view class="function-text">团购</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun7.png" mode="scaleToFill"/>
+          <view class="function-text">我的预约</view>
+        </view>
+        <view class="function-item">
+          <image src="../../assets/fun8.png" mode="scaleToFill"/>
+          <view class="function-text">会员</view>
+        </view>
+      </view>
+      <view class="function-view">
+        <view class="function-item-bottom">
+          <image src="../../assets/fun9.png" mode="scaleToFill"/>
+          <view class="function-text">我的地址</view>
+        </view>
+        <view class="function-item-bottom">
+          <image src="../../assets/fun10.png" mode="scaleToFill"/>
+          <view class="function-text">客服</view>
+        </view>
+        <view class="function-item-bottom">
+          <image src="../../assets/fun11.png" mode="scaleToFill"/>
+          <view class="function-text">帮助</view>
+        </view>
+        <view class="function-item-bottom">
+          <image src="../../assets/fun12.png" mode="scaleToFill"/>
+          <view class="function-text">更多功能</view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+const app = getApp()
+export default {
+  
+  config: {
+    navigationBarTitleText: '个人中心',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    hasUserInfo:false
+  },
+  onLoad: function (options) {
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+  },
+  onlogin: function (e) {
+    console.log(e.detail.userInfo)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+    wx.showToast({
+      title: '欢迎，' + e.detail.userInfo.nickName,
+    })
+  },
+}
+</script>
+
+<style lang="less">
+
+page{
+  background: #f4f4f4;
+}
+
+.header {
+  width: 100%;
+  height: 140px;
+  background-color: #fff;
+  background-image: url(http://yanxuan.nosdn.127.net/d069279e5834bbca17065a9855a014bf.png);
+  background-size: 100%;
+  background-position:bottom center;
+  display: flex;
+  flex-direction: row;
+}
+.header2 {
+  width: 100%;
+  height: 140px;
+  background-color: #fff;
+  background-image: url(http://yanxuan.nosdn.127.net/d069279e5834bbca17065a9855a014bf.png);
+  background-size: 100%;
+  background-position:bottom center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-info {
+  flex: 0.5;
+  // padding-left: 10px;
+  // padding-top: 60px;
+  .mix-flex-x-center();
+  display:flex;
+  flex-direction:column;
+  .header-info-name{
+    font-size: 50rpx;
+    color: #fff;
+    font-weight: 400;
+  }
+  .header-info-sub{
+    margin-top:5px;
+    font-size: 30rpx;
+    color: #fff;
+    font-weight: 300;
+  }
+}
+.header-avatar {
+  flex: 0.3;
+  .mix-flex-center();
+}
+
+.header-arrow{
+  flex:0.2;
+  .mix-flex-center();
+  image{
+    width:30px;
+  }
+}
+.header-avatar image {
+  width: 60px;
+  height: 60px;
+  // border: 2px solid #333;
+  border-radius: 50%;
+}
+.login-btn {
+  width: 200px;
+  height: 44px;
+  color: #fff;
+  background: #333;
+  font-size: 30rpx;
+  line-height: 47px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.login-btn ::after{
+  border:0;
+}
+
+.function-view{
+  display:flex;
+  flex-direction:row;
+}
+
+.function-item{
+  flex:1;
+  .mix-1px(0, 1, 1, 0, #ccc);
+  padding:8px;
+  image{
+    width:25px;
+    height:25px;
+    margin:auto;
+  }
+  .function-text{
+    margin-top:8px;
+    font-size:20rpx;
+    color:#515151;
+    text-align:center;
+  }
+  
+}
+
+.function-item:last-child{
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.function-item-bottom{
+  flex:1;
+  .mix-1px(0, 1, 0, 0, #ccc);
+  padding:8px;
+  image{
+    width:25px;
+    height:25px;
+    margin:auto;
+  }
+  .function-text{
+    margin-top:8px;
+    font-size:20rpx;
+    color:#515151;
+    text-align:center;
+  }
+  
+}
+
+.function-item-bottom:last-child{
+  .mix-1px(0, 0, 0, 0, #ccc);
+}
+
+.function-item-none{
+  flex:1;
+  padding:15px 5px 5px 5px;
+  image{
+    width:25px;
+    height:25px;
+    margin:auto;
+  }
+  .function-text{
+    margin-top:8px;
+    font-size:20rpx;
+    color:#515151;
+    text-align:center;
+  }
+  
+}
+
+.block-view{
+  margin:5px;
+  border-radius:5px;
+  padding:5px;
+  background:#fff;
+  margin-top:20px;
+}
+
+.block-title{
+  padding:5px;
+  font-size: 30rpx;
+  color:#555;
+  border-bottom:1px solid #eee;
+}
+
+</style>

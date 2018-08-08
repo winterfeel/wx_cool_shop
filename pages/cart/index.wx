@@ -51,7 +51,7 @@ export default {
       url:"http://yanxuan.nosdn.127.net/bb54b4e6a7f9cce92c24dd51a6485646.png?imageView&thumbnail=750x0&quality=75",
       price:"119",
       select:"circle",
-      num:"1",
+      num:"2",
       from:"支持苹果安卓双端"
     },
     {

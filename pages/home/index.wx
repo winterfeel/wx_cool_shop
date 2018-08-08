@@ -1,7 +1,7 @@
 <template>
   <view>
 
-    <ui-tabs index="{{ current1 }}" ink-bar tab-style="color:#888;" ink-bar-style="border-bottom:3px solid #111;width:60%;" active-tab-style="color:#111;" bounce="false"  bindchange="handleChange1">
+    <ui-tabs index="{{ current1 }}" ink-bar tab-style="color:#888;" ink-bar-style="border-bottom:3px solid #b5262d;width:60%;" active-tab-style="color:#b5262d;" bounce="false"  bindchange="handleChange1">
       <ui-tab>热门推荐</ui-tab>
       <ui-tab>海淘尖货</ui-tab>
       <ui-tab>颜值吃货</ui-tab>
@@ -12,7 +12,7 @@
     <view class="swiper-container">
       <swiper circular autoplay indicator-dots indicator-color="#ddd" indicator-active-color="#fff" interval="5000" duration="500" class="swiper">
           <block wx:for="{{banners}}" wx:key="unique">
-              <swiper-item>
+              <swiper-item bindtap="onbannerclick">
                   <image src="{{item.img}}" class="img" mode="scaleToFill"/>
               </swiper-item>
           </block>
@@ -44,18 +44,18 @@
         品牌制造商直供
       </view>
       <view class="grid-row">
-        <view class="grid-row-item">
+        <view class="grid-row-item" bindtap="onitemclick">
           <image src="http://luluimg.lulufind.com/yx001.png" mode="scaleToFill"/>
         </view>
-        <view class="grid-row-item">
+        <view class="grid-row-item" bindtap="onitemclick">
           <image src="http://luluimg.lulufind.com/yx002.png" mode="scaleToFill"/>
         </view>
       </view>
       <view class="grid-row">
-        <view class="grid-row-item">
+        <view class="grid-row-item" bindtap="onitemclick">
           <image src="http://luluimg.lulufind.com/yx003.png" mode="scaleToFill"/>
         </view>
-        <view class="grid-row-item">
+        <view class="grid-row-item" bindtap="onitemclick">
           <image src="http://luluimg.lulufind.com/yx004.png" mode="scaleToFill"/>
         </view>
       </view>
@@ -66,7 +66,7 @@
         限时抢购<text style="color:#888;margin-left:5px;font-size:25rpx;">2分15秒后开始</text>
       </view>
       <scroll-view scroll-x class="picture-scroll">
-        <view class="scroll-item" wx:for="{{scrolls}}">
+        <view class="scroll-item" wx:for="{{scrolls}}" bindtap="onitemclick">
           <image class="picture-item" mode="aspectFit" src="{{item.img}}"/>
           <view class="picture-title">{{item.title}}</view>
           <view class="picture-subtitle">{{item.subtitle}}</view>
@@ -112,7 +112,7 @@
         猜你喜欢
       </view>
       <view class="shop-list">
-        <view class="shop-list-item" wx:for="{{shopitems}}">
+        <view class="shop-list-item" wx:for="{{shopitems}}" bindtap="onitemclick">
           <view class="shop-list-item-block">
             <image src="{{item.img}}" mode="aspectFit" />
             <view class="shop-list-item-info">
@@ -241,7 +241,17 @@ export default {
     this.setData({
       current1:index
     })
-  }
+  },
+  onbannerclick:function(e){
+    wx.navigateTo({
+      url: '../detail/index'
+    })
+  },
+  onitemclick:function(e){
+    wx.navigateTo({
+      url: '../detail/index'
+    })
+  },
 }
 </script>
 

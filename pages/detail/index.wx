@@ -1,0 +1,483 @@
+<template>
+  <view>
+    
+    <view class="image-view">
+      <swiper indicator-dots="{{false}}" bindchange="onchange">
+        <block wx:for="{{images}}">
+          <swiper-item>
+            <image src="{{item.img}}" class="slide-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="dots-view">
+        {{current}}/{{images.length}}
+      </view>
+    </view>
+
+    <view class="info-view">
+      <view class="info-view-left">
+        <view class="info-view-left-title">
+          自然棉麻四件套
+        </view>
+        <view class="info-view-left-subtitle">
+          透气吸汗、舒适整洁、居家精选
+        </view>
+      </view>
+      <view class="info-view-right">
+        <image src="../../assets/fav0.png" mode="widthFix"/>
+      </view>
+    </view>
+
+    <view class="price-view">
+      ¥488<text class="price-view-old">¥988</text>
+    </view>
+
+    <view class="tip-view">
+      ◎七天无理由退款  ◎24小时内发货  ◎正品保障
+    </view>
+
+    <view class="select-view">
+
+      <view class="select-view-row">
+        <view class="select-view-row-left"><text>优惠券</text></view>
+        <view class="select-view-row-right">满400减20</view>
+        <view class="select-view-row-arrow">
+          <image src="../../assets/next-gray.png" mode="widthFix"/>
+        </view>
+      </view>
+
+      <view class="select-view-row">
+        <view class="select-view-row-left"><text>赠品</text></view>
+        <view class="select-view-row-right">居家实用水杯x1</view>
+        <view class="select-view-row-arrow">
+          <image src="../../assets/next-gray.png" mode="widthFix"/>
+        </view>
+      </view>
+
+      <view class="select-view-row" bindtap="onchoose">
+        <view class="select-view-row-mid">请选择商品规格</view>
+        <view class="select-view-row-arrow">
+          <image src="../../assets/next-gray.png" mode="widthFix"/>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="review-view">
+      <view class="select-view-row">
+        <view class="select-view-row-mid">用户评价(237)</view>
+        <view class="select-view-row-arrow">
+          <image src="../../assets/next-gray.png" mode="widthFix"/>
+        </view>
+      </view>
+      <view class="review-item">
+      	<view class="review-item-header">
+      		<image src="http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png" mode="widthFix"/>
+      		<view class="review-item-header-name">xj***mm</view>
+      		<ui-star value="4" star-width="30" star-height="30" readonly="true"></ui-star>
+      	</view>
+        <view class="review-item-subinfo">2018-07-28 12:22:36  规格:天蓝色</view>
+        <view class="review-item-text">很漂亮的颜色，就是布料比较薄的款式，不过夏天用也无妨，很喜欢！</view>
+        <view class="review-item-images">
+          <image class="review-item-image" src="https://yanxuan.nosdn.127.net/3ccd34a210787588267b44d8c0f179a9.jpg" mode="aspectFill"/>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-view">
+
+      <view class="detail-title">
+        商品详情
+      </view>
+      
+      <view class="detail-content">
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t17635/234/1981729292/253830/13fb1843/5adff04aNb3f311dc.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t18235/204/2006395337/480007/4b555b23/5adff04aNb6af77cf.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t17308/158/1970601387/377619/12748353/5adff04aN0eb87b23.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t17728/125/1955939648/222472/f25b0295/5adff04aN8ce09025.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t18208/202/1967326469/172584/1abe5a0d/5adff04bN17c95538.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t18205/291/1978190477/172208/eeb394da/5adff04bN0afef1f8.jpg" mode="widthFix"/>
+        <image src="http://img30.360buyimg.com/popWaterMark/jfs/t19171/120/1969416209/106325/5f84180a/5adff04eN7607be7d.jpg" mode="widthFix"/>
+      </view>
+
+    </view>
+
+    <view class='bottom-bar'>
+      <view class="btn-contact"><image src="../../assets/fun10.png" mode="widthFix"/></view>
+      <view class="btn-1" bindtap="onchoose">加入购物车</view>
+      <view class="btn-2" bindtap="onchoose">立即购买</view>
+    </view>
+
+    <view class="choose-view" wx:if="{{showchoose}}">
+    	<view class="choose-inner-view">
+    		<view class="choose-inner-top-view">
+    			<image class="choose-inner-icon" src="http://yanxuan.nosdn.127.net/b797b809d72d6ea963f8106cf852ddb5.jpg" mode="aspectFill"/>
+    			<view class="choose-inner-price">价格：¥488</view>
+    			<image bindtap="onchoose" class="choose-inner-close" src="../../assets/close.png" mode="scaleToFill"/>
+    		</view>
+    		<view class="choose-inner-content">
+    			<view class="choose-inner-content-title">颜色</view>
+    			<view class="choose-inner-content-list">
+    				<view class="choose-inner-content-item active">天蓝色</view>
+    				<view class="choose-inner-content-item">粉红色</view>
+    			</view>
+    			<view class="choose-inner-content-title">尺寸</view>
+    			<view class="choose-inner-content-list">
+    				<view class="choose-inner-content-item active">2米</view>
+    				<view class="choose-inner-content-item">1.8米</view>
+    				<view class="choose-inner-content-item">1.5米</view>
+    			</view>
+    			<view class="choose-inner-content-title">数量</view>
+    			<view class="choose-inner-content-list">
+    				<ui-stepper color="#b5262d" value="1"></ui-stepper>
+    			</view>
+    		</view>
+    	</view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+var showchoose = false
+export default {
+  config: {
+    navigationBarTitleText: '商品详情',
+    backgroundColor: '#fff',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+  	showchoose:showchoose,
+    current:1,
+    images:[
+      {'img':'http://yanxuan.nosdn.127.net/b797b809d72d6ea963f8106cf852ddb5.jpg'},
+      {'img':'http://yanxuan.nosdn.127.net/488310fb5cf19c5f95b8b29582623d21.jpg'},
+      {'img':'http://yanxuan.nosdn.127.net/530c2b239d39cf77a10e521af98f9a5e.jpg'},
+      {'img':'http://yanxuan.nosdn.127.net/d94c1df5b4cabe9a07fc2c35397a09fb.jpg'}
+    ]
+  },
+  onchange:function(e){
+    this.setData({
+      current:e.detail.current+1
+    })
+  },
+  onchoose:function(e){
+  	showchoose = !showchoose
+  	this.setData({
+  		showchoose:showchoose
+  	})
+  },
+  onLoad:function(e){
+  	showchoose = false
+  }
+}
+</script>
+
+<style lang="less">
+
+page{
+  background:#f4f4f4;
+}
+
+.image-view{
+  position:relative;
+  height: 300px;
+  width: 100%;
+  swiper{
+    height:100%;
+  }
+}
+
+.slide-image{
+  height:100%;
+}
+
+.dots-view{
+  position:absolute;
+  z-index:9;
+  bottom:10px;
+  right:10px;
+  font-size:30rpx;
+  color:#fff;
+  padding:2px 8px;
+  background:rgba(0,0,0,0.5);
+  border-radius:5px;
+}
+
+.info-view{
+  padding:8px;
+  display:flex;
+  flex-direction:row;
+  background:#fff;
+}
+
+.info-view-left{
+  flex:1;
+  .info-view-left-title{
+    font-size:40rpx;
+    color:#333;
+  }
+  .info-view-left-subtitle{
+    font-size:30rpx;
+    color:#666;
+  }
+}
+
+.info-view-right{
+  .mix-flex-center();
+  image{
+    width:30px;
+  }
+}
+
+.price-view{
+  font-size:50rpx;
+  color:#b5262d;
+  padding:8px;
+  background:#fff;
+  .price-view-old{
+    font-size:30rpx;
+    color:#888;
+    text-decoration:line-through;
+    margin-left:10px;
+  }
+}
+
+.tip-view{
+  padding: 10px 15px;
+  .mix-1px(1, 0, 1, 0, #ccc);
+  font-size:25rpx;
+  color:#666;
+  background:#fff;
+}
+
+.select-view{
+  margin-top:8px;
+  background:#fff;
+}
+
+.select-view-row{
+  padding:15px 10px;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  display:flex;
+  flex-direction:row;
+}
+
+.review-item{
+  padding: 8px;
+  .mix-1px(0, 0, 1, 0, #ccc);
+  display:flex;
+  flex-direction:column;
+}
+
+.review-item-header{
+  display:flex;
+  flex-direction:row;
+  .mix-flex-y-center();
+  image{
+    width:30px;
+    border-radius:50%;
+  }
+  ui-star{
+    margin-left:5px;
+  }
+}
+
+.review-item-header-name{
+	font-size: 35rpx;
+	color:#333;
+	margin-left:10px;
+}
+
+.select-view-row-left{
+  flex:0.2;
+  font-size:25rpx;
+  color:#b5262d;
+  text{
+    padding: 1px 3px;
+    border-radius: 3px;
+    border:1px solid #b5262d;
+  }
+}
+
+.select-view-row-right{
+  flex:0.75;
+  font-size:25rpx;
+  color:#666;
+}
+
+.select-view-row-arrow{
+  flex:0.05;
+  .mix-flex-center();
+  image{
+    width:15px;
+  }
+}
+
+.select-view-row-mid{
+  flex:0.95;
+  font-size:30rpx;
+  color:#333;
+}
+
+.review-view{
+  margin-top:8px;
+  background:#fff;
+}
+
+.review-item-subinfo{
+  font-size:25rpx;
+  color:#aaa;
+  margin-top:5px;
+}
+
+.review-item-text{
+  color:#333;
+  font-size:30rpx;
+  margin-top:5px;
+}
+
+.review-item-images{
+  margin-top:5px;
+  display:flex;
+  flex-direction:row;
+}
+
+.review-item-image{
+  flex:0.25;
+  margin:0 5px 5px 0px;
+  height:80px;
+}
+
+.detail-view{
+  margin-top:8px;
+  background:#fff;
+}
+
+.detail-title{
+  padding:10px 15px;
+  font-size:30rpx;
+  color:#333;
+  .mix-1px(0, 0, 1, 0, #ccc);
+}
+
+.detail-content{
+  image{
+    width:100%;
+  }
+  margin-bottom:60px;
+}
+
+.bottom-bar{
+  width:100%;
+  height:60px;
+  position:fixed;
+  z-index:10;
+  bottom:0;
+  background:#fff;
+  display:flex;
+  flex-direction:row;
+  border-top:1px solid #eee;
+  .btn-contact{
+    width:60px;
+    .mix-flex-center();
+    image{
+      width:30px;
+    }
+    .mix-1px(0, 1, 0, 0, #ccc);
+  }
+  .btn-1{
+    flex:1;
+    color:#666;
+    font-size:35rpx;
+    line-height:60px;
+    .mix-flex-center();
+  }
+  .btn-2{
+    flex:1;
+    color:#fff;
+    background:#b5262d;
+    font-size:35rpx;
+    line-height:60px;
+    .mix-flex-center();
+  }
+}
+
+.choose-view{
+  width:100%;
+  height:100%;
+  position:fixed;
+  z-index:10;
+  bottom:60px;
+  background:rgba(0,0,0,0.3);
+  display:flex;
+  flex-direction:column;
+}
+
+.choose-inner-view{
+	background: #fff;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	padding-bottom: 10px;
+}
+
+.choose-inner-close{
+	width:20px;
+	height:20px;
+}
+
+.choose-inner-top-view{
+	display: flex;
+	flex-direction: row;
+	padding:10px;
+}
+
+.choose-inner-icon{
+	width:80px;
+	height:80px;
+}
+
+.choose-inner-price{
+	margin-left:10px;
+	flex:1;
+	color:#b5262d;
+	font-size:35rpx;
+	align-content:flex-start;
+}
+
+.choose-inner-content{
+	padding:10px;
+}
+
+.choose-inner-content-title{
+	font-size:30rpx;
+	color:#333;
+	margin-top:5px;
+}
+
+.choose-inner-content-list{
+	display: flex;
+	flex-direction: row;
+	margin-top:10px;
+	margin-bottom: 10px;
+}
+
+.choose-inner-content-item{
+	border-radius: 5px;
+	border:1px solid #333;
+	font-size:25rpx;
+	color:#666;
+	padding:3px 10px;
+	margin-right:10px;
+}
+
+.choose-inner-content-item.active{
+	order-radius: 5px;
+	border:1px solid #b5262d;
+	font-size:25rpx;
+	color:#b5262d;
+	padding:3px 10px;
+	margin-right:10px;
+}
+</style>

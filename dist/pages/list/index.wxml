@@ -3,7 +3,7 @@
     <image class="cover" src="http://yanxuan.nosdn.127.net/c1adbc77984d504e48329dcc5f742905.jpg" mode="widthFix" />
   </view>
   <view class="shop-list">
-    <view class="shop-list-item" wx:for="{{shopitems}}">
+    <view class="shop-list-item" wx:for="{{shopitems}}" bindtap="onitemclick">
       <view class="shop-list-item-block">
         <image src="{{item.img}}" mode="aspectFit" />
         <view class="shop-list-item-info">

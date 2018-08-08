@@ -91,5 +91,16 @@ exports.default = Page({
     this.setData({
       current1: index
     });
+  },
+
+  onbannerclick: function onbannerclick(e) {
+    wx.navigateTo({
+      url: '../detail/index'
+    });
+  },
+  onitemclick: function onitemclick(e) {
+    wx.navigateTo({
+      url: '../detail/index'
+    });
   }
 });

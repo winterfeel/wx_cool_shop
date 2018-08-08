@@ -27,7 +27,7 @@
       <view class="allSelect-text">全选</view>
     </view>
     <view class="count">
-      <text>合计: $</text>{{count}}
+      <text>合计: ¥ </text>{{count}}
     </view>
     <view class="order" bindtap="goPay">
       结 算

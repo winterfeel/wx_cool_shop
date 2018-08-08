@@ -4,7 +4,7 @@
       <image class="cover" src="http://yanxuan.nosdn.127.net/c1adbc77984d504e48329dcc5f742905.jpg" mode="widthFix"/>
     </view>
     <view class="shop-list">
-      <view class="shop-list-item" wx:for="{{shopitems}}">
+      <view class="shop-list-item" wx:for="{{shopitems}}" bindtap="onitemclick">
         <view class="shop-list-item-block">
           <image src="{{item.img}}" mode="aspectFit" />
           <view class="shop-list-item-info">
@@ -60,6 +60,11 @@ export default {
       "name": "夏日凉席",
       "price": "499",
     }]
+  },
+  onitemclick:function(e){
+    wx.navigateTo({
+      url: '../detail/index'
+    })
   }
 }
 </script>
@@ -89,8 +94,6 @@ export default {
 }
 .shop-list-item .shop-list-item-block image {
   height: 140px;
-  // border-top-left-radius: 2px;
-  // border-top-right-radius: 2px;
   background: #f4f4f4;
 }
 .shop-list-item .shop-list-item-block .shop-list-item-info {

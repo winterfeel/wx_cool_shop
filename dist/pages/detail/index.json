@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "ui-star": "../../packages/touchui-wx-components/ui-star/dist/index",
+    "ui-stepper": "../../packages/touchui-wx-components/ui-stepper/dist/index"
+  },
+  "navigationBarTitleText": "商品详情",
+  "backgroundColor": "#fff",
+  "navigationBarTextStyle": "black"
+}

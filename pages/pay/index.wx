@@ -1,0 +1,407 @@
+<template>
+  <view>
+    <form bindsubmit="createOrder" report-submit="true">
+     <view class="address-box" wx:if="{{isNeedLogistics > 0}}">
+        <view class="add-address" hidden="{{curAddressData}}">
+            <view class="title" bindtap="addAddress">新增收货地址</view>
+        </view>
+        <view class="show-address" hidden="{{!curAddressData}}" bindtap="selectAddress">
+            <view class="name-tel">{{curAddressData.linkMan}}  {{curAddressData.mobile}}</view>
+            <view class="addr-text">{{curAddressData.address}}</view>
+        </view>
+     </view>
+     <view class="goods-list">
+        <view class="list-title">商品列表</view>
+        <view class="a-goods" wx:for-items="{{goodsList}}" wx:key="{{index}}">
+            <view class="img-box">
+                <image src="{{item.pic}}" class="img" />
+            </view>
+            <view class="text-box">
+                <view class="arow arow01">
+                    <view class="goods-name">{{item.name}}</view>
+                    <view class="goods-price">¥ {{item.price}}</view>
+                </view>
+                <view class="arow">
+                    <view class="goods-label">{{item.label}}</view>
+                    <view class="goods-num">x {{item.number}}</view>
+                </view>
+            </view>
+        </view>
+     </view>
+     <view class="peisong-way">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0}}">
+            <view class="row-label">配送方式</view>
+            <view class="right-text" wx:if="{{yunPrice > 0}}">快递</view>
+            <view class="right-text" wx:if="{{yunPrice == 0}}">包邮</view>
+        </view>
+        <view class="row-box">
+            <view class="row-label">推广码</view>
+            <view class="right-text">
+                <input name="code" type="text" class="liuyan" placeholder="必填" />
+            </view>
+        </view>
+        <view class="row-box">
+            <view class="row-label">备注</view>
+            <view class="right-text">
+                <input name="remark" type="text" class="liuyan" placeholder="如需备注请输入" />
+            </view>
+        </view>
+     </view>
+
+
+     <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && yunPrice > 0) || (!hasNoCoupons)}}">
+        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
+            <view class="row-label">商品金额</view>
+            <view class="right-text">¥ {{allGoodsPrice}}</view>
+        </view>
+        <view class="row-box" wx:if="{{isNeedLogistics > 0 && yunPrice > 0}}">
+            <view class="row-label">运费</view>
+            <view class="right-text">+ ¥ {{yunPrice}}</view>
+        </view>
+     </view>
+
+     <view class="jiesuan-box">
+        <view class="left-price">
+            <view class="total">合计：¥ {{allGoodsAndYunPrice - youhuijine}}</view>
+        </view>
+        <button class="to-pay-btn" formType="submit">提交订单</button>
+    </view>
+    </form>
+  </view>
+</template>
+
+<script>
+const app = getApp()
+export default {
+  config: {
+    navigationBarTitleText: '提交订单',
+    backgroundColor: '#fff',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    goodsList:[
+        {
+            pic:"http://yanxuan.nosdn.127.net/bb54b4e6a7f9cce92c24dd51a6485646.png?imageView&thumbnail=750x0&quality=75",
+            name:"新款线控耳机",
+            price:"119",
+            label:"支持苹果安卓双端",
+            number:"2",
+        },
+        {
+            pic:"http://yanxuan.nosdn.127.net/fcbfea414e3a2e1aa941574fb40cbd4d.png?imageView&amp;thumbnail=750x0&amp;quality=75",
+            name:"黑色大理石纹旅行箱",
+            price:"449",
+            label:"出行有格调",
+            number:"1",
+        }
+    ],
+    isNeedLogistics:0, // 是否需要物流信息
+    allGoodsPrice:0,
+    yunPrice:0,
+    allGoodsAndYunPrice:0,
+    goodsJsonStr:"",
+    hasNoCoupons: true,
+    coupons: [],
+    youhuijine:0, //优惠券金额
+    curCoupon:null // 当前选择使用的优惠券
+  },
+  onShow : function () {
+    var that = this;
+    var shopList = [];
+
+    //购物车下单
+    var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
+    that.data.kjId = shopCarInfoMem.kjId;
+    if (shopCarInfoMem && shopCarInfoMem.shopList) {
+    // shopList = shopCarInfoMem.shopList
+    shopList = shopCarInfoMem.shopList.filter(entity => {
+        return entity.active;
+    });
+    }
+    
+    // that.setData({
+    //   goodsList: shopList,
+    // });
+    that.initShippingAddress();
+  },
+
+  onLoad: function (e) {
+    var that = this;
+    //显示收货地址标识
+    that.setData({
+      isNeedLogistics: 1
+    });
+  },
+
+  getDistrictId : function (obj, aaa){
+    if (!obj) {
+      return "";
+    }
+    if (!aaa) {
+      return "";
+    }
+    return aaa;
+  },
+
+  createOrder:function (e) {
+    wx.showLoading();
+    var that = this;
+    var loginToken = wx.getStorageSync('token') // 用户登录 token
+    var remark = ""; // 备注信息
+    if (e) {
+      remark = e.detail.value.remark; // 备注信息
+    }
+
+    var postData = {
+      token: loginToken,
+      goodsJsonStr: that.data.goodsJsonStr,
+      remark: remark
+    };
+    if (that.data.kjId) {
+      postData.kjid = that.data.kjId;
+    }
+    if (that.data.isNeedLogistics > 0) {
+      if (!that.data.curAddressData) {
+        wx.hideLoading();
+        wx.showModal({
+          title: '错误',
+          content: '请先设置您的收货地址！',
+          showCancel: false
+        })
+        return;
+      }
+      postData.provinceId = that.data.curAddressData.provinceId;
+      postData.cityId = that.data.curAddressData.cityId;
+      if (that.data.curAddressData.districtId) {
+        postData.districtId = that.data.curAddressData.districtId;
+      }
+      postData.address = that.data.curAddressData.address;
+      postData.linkMan = that.data.curAddressData.linkMan;
+      postData.mobile = that.data.curAddressData.mobile;
+      postData.code = that.data.curAddressData.code;
+    }
+    if (that.data.curCoupon) {
+      postData.couponId = that.data.curCoupon.id;
+    }
+    if (!e) {
+      postData.calculate = "true";
+    }
+  },
+  initShippingAddress: function () {
+    var that = this;
+    that.setData({
+        curAddressData: null
+    });
+  },
+  addAddress: function () {
+    wx.navigateTo({
+      url:"../address-add/index"
+    })
+  },
+  selectAddress: function () {
+    wx.navigateTo({
+      url:"/pages/select-address/index"
+    })
+  },
+  
+}
+</script>
+
+<style lang="less">
+.container{
+    background-color:#F2f2f2;
+}
+
+.address-box{
+    width: 100%;
+    background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center ,
+                url(https://cdn.it120.cc/images/weappshop/addr-line.png) no-repeat center bottom;
+    background-size: 16rpx auto,750rpx auto;
+    background-color: #fff;
+    margin: 0;
+}
+.add-addres{
+    width: 100%;
+}
+.add-address .title{
+    font-size: 28rpx;
+    color: #000;
+    margin-left: 30rpx;
+    background: url(https://cdn.it120.cc/images/weappshop/ico-add-addr.png) no-repeat left center;
+    background-size: 60rpx auto;
+    padding: 40rpx 0 40rpx 90rpx; 
+}
+.show-address{
+    width: 664rpx;
+    box-sizing: border-box;
+    padding-left: 100rpx;
+    background: url(https://cdn.it120.cc/images/weappshop/ico-addr.png) no-repeat 30rpx 35rpx;
+    background-size: 30rpx auto;
+}
+.show-address .name-tel{
+    font-size: 28rpx;
+    color: #000;
+    padding: 30rpx 0 20rpx 0;
+}
+.show-address .addr-text{
+    font-size: 24rpx;
+    color: #888;
+    padding-bottom: 34rpx;
+    line-height: 36rpx;
+}
+form{
+    width: 100%;
+}
+.goods-list{
+    width:100%;
+    background-color: #fff;
+    margin-bottom: 20rpx;
+}
+.goods-list .list-title{
+    font-size: 28rpx;
+    color: #000;
+    padding: 30rpx 0 25rpx 30rpx;
+}
+.goods-list  .a-goods{
+    width: 720rpx;
+    margin-left: 30rpx;
+    display: flex;
+    /*justify-content: space-between;*/
+    border-top: 1px solid #eee;
+    padding: 30rpx 30rpx 30rpx 0;
+}
+.goods-list  .a-goods .img-box{
+    width: 160rpx;
+    height:160rpx;
+    overflow: hidden;
+    margin-right: 20rpx;
+    background-color: #d8d8d8;
+}
+
+.goods-list .img-box .img{
+    width: 160rpx;
+    height:160rpx;
+}
+.goods-list  .a-goods .text-box{
+    width: 510rpx;
+    box-sizing: border-box;
+    padding-top: 10rpx;
+}
+.a-goods .text-box .arow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+.a-goods .text-box .arow .goods-name{
+     width: 360rpx;
+     font-size:26rpx;
+     height: 74rpx;
+     color:#000000;
+     line-height: 1.6;
+     overflow: hidden;
+ }
+.a-goods .text-box .arow01{
+    margin-bottom: 30rpx;
+}
+.a-goods .text-box .arow .goods-price{
+    font-size:26rpx;
+    color:#b5262d;
+    align-self: flex-start;
+}
+.a-goods .text-box .arow .goods-label{
+    font-size: 26rpx;
+    color: #999;
+}
+.a-goods .text-box .arow .goods-num{
+    font-size: 26rpx;
+    color: #999;
+}
+.peisong-way{
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 20rpx;
+}
+.peisong-way .row-box{
+    width: 720rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 24rpx 0 24rpx 30rpx;
+    border-bottom: 1rpx solid #eee;
+}
+.peisong-way .row-label{
+    font-size: 28rpx;
+    color: #000;
+}
+.peisong-way .right-text{
+    font-size: 28rpx;
+    color: #666;
+    padding-right: 30rpx;
+}
+.peisong-way .liuyan{
+    width: 510rpx;
+    font-size: 28rpx;
+}
+.goods-info{
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 120rpx;
+    padding-bottom: 24rpx;
+}
+.goods-info .row-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 24rpx 30rpx 12rpx 30rpx;
+    font-size: 28rpx;
+    color: #000;
+}
+.goods-info .row-box .right-text{
+    text-align: right;
+}
+.jiesuan-box{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100rpx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top:1px solid #eee;
+    background-color: #fff;
+}
+.jiesuan-box .to-pay-btn{
+    width:250rpx;
+    text-align: center;
+    height: 100%;
+    line-height: 100rpx;
+    background-color: #b5262d;
+    font-size:32rpx;
+    color:#fff;
+    border-radius: 0;
+    border:0;
+    margin:0;
+}
+
+.jiesuan-box .to-pay-btn::after{
+    border:0;
+}
+
+.jiesuan-box  .left-price{
+    display: flex;
+    width: 500rpx;
+    justify-content:flex-end;
+    line-height: 100rpx;
+    padding: 0 30rpx 0 0;
+    font-size:28rpx;
+    box-sizing: border-box;
+}
+
+.jiesuan-box .total{
+    color: #333;
+    text-align: right;
+}
+</style>
