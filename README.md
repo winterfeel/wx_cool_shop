@@ -10,6 +10,9 @@ IDE 使用 VSCode
 只做了前端样式，数据都是写死模拟的，页面不是非常完善，大部分有了
 部分图片源自网易严选，仅供学习参考
 
+## 体验
+![Demo小程序码](https://github.com/winterfeel/wx_cool_shop/blob/master/images/code.jpg)
+
 ## 部分效果图
 ![首页](https://github.com/winterfeel/wx_cool_shop/blob/master/images/1.png)
 ![首页](https://github.com/winterfeel/wx_cool_shop/blob/master/images/2.png)
